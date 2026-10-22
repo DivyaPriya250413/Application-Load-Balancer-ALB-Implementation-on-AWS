@@ -1,14 +1,19 @@
-🚀 AWS Hands-On Lab Project: Implementing an Advance Application Load Balancer (ALB)
+🚀 **AWS Hands-On Lab Project: Implementing an Advance Application Load Balancer (ALB)** 🔗 www.linkedin.com/in/divya-priya2026 (Running Process)
 
 I gained hands-on experience implementing an Application Load Balancer (ALB) on Amazon Web Services (AWS) to distribute incoming web traffic across multiple EC2 instances.
 
-🤖 Objective:
+
+📌 **AWS Services Used:**
+
+Amazon EC2 | Application Load Balancer (ALB) | Target Groups | Security Groups | Availability Zones
+
+🤖 **Objective:**
 
 To improve application availability and distribute incoming HTTP/HTTPS traffic across three EC2 instances using an AWS Application Load Balancer.
 
-🛠️ Step-by-Step Implementation
+🛠️ **Step-by-Step Implementation**
 
-Step 1: Create a Security Group
+**Step 1: Create a Security Group**
 
 • Open the Amazon EC2 Dashboard.
 
@@ -19,7 +24,7 @@ Step 1: Create a Security Group
 • Use appropriate source restrictions for secure access.
 
 
-Step 2: Launch Three EC2 Instances
+**Step 2: Launch Three EC2 Instances**
 
 • Launch three Amazon Linux EC2 instances.
 
@@ -30,7 +35,7 @@ Step 2: Launch Three EC2 Instances
 • Ensure each instance can serve web traffic.
 
 
-Step 3: Create a Target Group
+**Step 3: Create a Target Group**
 
 • Navigate to EC2 → Target Groups.
 
@@ -43,7 +48,7 @@ Step 3: Create a Target Group
 • Configure health checks and create the target group.
 
 
-Step 4: Create an Application Load Balancer:
+**Step 4: Create an Application Load Balancer:**
 
 • Navigate to EC2 → Load Balancers and select Application Load Balancer.
 
@@ -58,7 +63,7 @@ Step 4: Create an Application Load Balancer:
 • Create the load balancer and verify that the targets become healthy.
 
 
-🎯 Key Learning Outcomes:
+🎯 **Key Learning Outcomes:**
 
 • Understanding how an Application Load Balancer works.
 
@@ -71,15 +76,9 @@ Step 4: Create an Application Load Balancer:
 • Learning how load balancing supports application availability and scalability.
 
 
-💡Real-World Use Case
+💡**Real-World Use Case**
 
 • When a website receives requests from many users, an Application Load Balancer can distribute traffic across multiple backend servers instead of sending every request to a single server. 
 
 • This helps improve availability and supports scalable web applications.
 
-
-📌 AWS Services Used:
-
-Amazon EC2 | Application Load Balancer (ALB) | Target Groups | Security Groups | Availability Zones
-
-The running process check it in linkedin site 🔗 www.linkedin.com/in/divya-priya2026

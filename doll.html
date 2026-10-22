@@ -1,0 +1,905 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dolly Dreams | Doll Boutique</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink: #ed82a6;
+      --dark-pink: #c94f7c;
+      --cream: #fff9f4;
+      --lavender: #f0e9ff;
+      --text: #483444;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button, a {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 7%;
+      background: white;
+      box-shadow: 0 3px 15px #e8cbd455;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 900;
+      color: var(--dark-pink);
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: #a58ad5;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: bold;
+      transition: color .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--dark-pink);
+    }
+
+    .cart-button {
+      background: var(--dark-pink);
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 560px;
+      padding: 70px 8%;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, #fff1f6 0%, rgba(255,241,246,.96) 35%,
+        rgba(255,241,246,.25) 75%),
+        url("https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 540px;
+    }
+
+    .eyebrow {
+      color: var(--dark-pink);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 70px);
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--dark-pink);
+    }
+
+    .hero p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #745b6c;
+      margin-bottom: 28px;
+    }
+
+    .primary-button {
+      display: inline-block;
+      border: none;
+      background: var(--dark-pink);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: transform .3s, background .3s;
+    }
+
+    .primary-button:hover {
+      background: #a93d66;
+      transform: translateY(-3px);
+    }
+
+    /* Benefits */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 27px 7%;
+      background: white;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .benefit {
+      padding: 10px;
+    }
+
+    .benefit .icon {
+      font-size: 27px;
+      margin-bottom: 10px;
+    }
+
+    .benefit h3 {
+      font-size: 15px;
+      margin-bottom: 7px;
+    }
+
+    .benefit p {
+      color: #927d8c;
+      font-size: 12px;
+    }
+
+    /* Product section */
+    .section {
+      padding: 65px 7%;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-heading .eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(28px, 4vw, 39px);
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
+      color: #8a7283;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* Category filters */
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-button {
+      border: 1px solid #edc8d9;
+      background: white;
+      color: var(--text);
+      border-radius: 25px;
+      padding: 10px 18px;
+      font-size: 13px;
+      transition: .3s;
+    }
+
+    .filter-button.active,
+    .filter-button:hover {
+      background: var(--dark-pink);
+      color: white;
+      border-color: var(--dark-pink);
+    }
+
+    /* Product cards */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 23px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 22px #d9b9c51f;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 12px 28px #d9b9c544;
+    }
+
+    .product-image {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+      background: var(--lavender);
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.07);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: white;
+      color: var(--dark-pink);
+      padding: 7px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-category {
+      color: #aa84c8;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .product-info h3 {
+      font-size: 17px;
+      margin: 9px 0;
+    }
+
+    .product-info p {
+      color: #927d8c;
+      font-size: 12px;
+      line-height: 1.6;
+      min-height: 38px;
+    }
+
+    .rating {
+      color: #d99b2b;
+      font-size: 13px;
+      margin: 12px 0;
+    }
+
+    .product-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .price {
+      color: var(--dark-pink);
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+    .add-button {
+      border: none;
+      background: #fce6ef;
+      color: var(--dark-pink);
+      border-radius: 20px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .add-button:hover {
+      background: var(--dark-pink);
+      color: white;
+    }
+
+    /* Promotional banner */
+    .promo {
+      margin: 0 7% 65px;
+      padding: 48px;
+      border-radius: 20px;
+      background: linear-gradient(120deg, #f6c9dc, #e8dcff);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .promo h2 {
+      font-size: clamp(25px, 4vw, 38px);
+      margin-bottom: 14px;
+    }
+
+    .promo p {
+      color: #70556e;
+      line-height: 1.8;
+      font-size: 14px;
+      max-width: 570px;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      text-align: center;
+      padding: 60px 7%;
+      background: white;
+    }
+
+    .newsletter h2 {
+      font-size: 30px;
+      margin-bottom: 13px;
+    }
+
+    .newsletter p {
+      color: #927d8c;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      max-width: 500px;
+      margin: auto;
+      gap: 8px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 17px;
+      border: 1px solid #e5c8d7;
+      border-radius: 25px;
+      outline-color: var(--pink);
+    }
+
+    /* Footer */
+    footer {
+      background: #493346;
+      color: white;
+      padding: 40px 7%;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    .footer-logo {
+      font-size: 25px;
+      font-weight: 900;
+      color: #ffc5dc;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 13px;
+    }
+
+    footer p {
+      color: #e0cbd9;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        flex-wrap: wrap;
+        padding: 17px 5%;
+      }
+
+      .logo {
+        font-size: 23px;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        gap: 20px;
+        overflow-x: auto;
+        padding: 5px 0;
+      }
+
+      .nav-links a {
+        white-space: nowrap;
+        font-size: 12px;
+      }
+
+      .hero {
+        min-height: 480px;
+        padding: 50px 6%;
+        background-position: 60% center;
+      }
+
+      .hero h1 {
+        font-size: 45px;
+      }
+
+      .benefits {
+        padding: 20px 4%;
+        gap: 8px;
+      }
+
+      .benefit h3 {
+        font-size: 12px;
+      }
+
+      .benefit p {
+        font-size: 10px;
+      }
+
+      .section {
+        padding: 45px 5%;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 13px;
+      }
+
+      .product-image {
+        height: 190px;
+      }
+
+      .product-info {
+        padding: 13px;
+      }
+
+      .product-info h3 {
+        font-size: 15px;
+      }
+
+      .price {
+        font-size: 16px;
+      }
+
+      .add-button {
+        padding: 9px;
+      }
+
+      .promo {
+        margin: 0 5% 45px;
+        padding: 28px 22px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-form input {
+        min-height: 48px;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-image {
+        height: 280px;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#home" class="logo">Dolly <span>Dreams</span> ♡</a>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop Dolls</a>
+      <a href="#collections">Collections</a>
+      <a href="#about">About Us</a>
+    </div>
+
+    <button class="cart-button" onclick="showCart()">
+      🛍 Cart (<span id="cart-count">0</span>)
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="home">
+    <div class="hero-content">
+      <div class="eyebrow">A little world of wonder</div>
+
+      <h1>Big Dreams.<br><span>Little Dolls.</span></h1>
+
+      <p>
+        Discover adorable dolls, magical friends and timeless
+        treasures. Find a special companion for every imagination
+        and make every moment memorable.
+      </p>
+
+      <a href="#shop" class="primary-button">Explore Collection ♡</a>
+    </div>
+  </header>
+
+  <!-- Benefits -->
+  <section class="benefits">
+    <div class="benefit">
+      <div class="icon">🎁</div>
+      <h3>Beautiful Gifts</h3>
+      <p>Special surprises for every occasion</p>
+    </div>
+
+    <div class="benefit">
+      <div class="icon">💗</div>
+      <h3>Made for Smiles</h3>
+      <p>Lovely companions for imaginative play</p>
+    </div>
+
+    <div class="benefit">
+      <div class="icon">📦</div>
+      <h3>Easy Shopping</h3>
+      <p>Explore your favourites in one place</p>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section class="section" id="shop">
+    <div class="section-heading">
+      <div class="eyebrow">Find your favourite</div>
+      <h2>Our Lovely Doll Collection</h2>
+      <p>Meet your next favourite friend from our colourful collection.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button class="filter-button active" data-category="all">All Dolls</button>
+      <button class="filter-button" data-category="fashion">Fashion Dolls</button>
+      <button class="filter-button" data-category="plush">Plush Dolls</button>
+      <button class="filter-button" data-category="baby">Baby Dolls</button>
+      <button class="filter-button" data-category="collectible">Collectibles</button>
+    </div>
+
+    <!-- Products -->
+    <div class="product-grid">
+
+      <article class="product-card" data-category="fashion">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1599623560574-39d485900c95?auto=format&fit=crop&w=700&q=85"
+               alt="Fashion doll" loading="lazy">
+          <span class="product-badge">BESTSELLER</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category">Fashion Dolls</span>
+          <h3>Princess Bella</h3>
+          <p>A charming fashion doll with a beautiful, colourful outfit.</p>
+          <div class="rating">★★★★★ <span style="color:#927d8c">(4.9)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹799</span>
+            <button class="add-button" data-name="Princess Bella" data-price="799">Add +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="plush">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=700&q=85"
+               alt="Soft toy collection" loading="lazy">
+          <span class="product-badge">POPULAR</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category">Plush Dolls</span>
+          <h3>Cuddle Bunny</h3>
+          <p>A soft, cuddly companion for cosy days and bedtime stories.</p>
+          <div class="rating">★★★★★ <span style="color:#927d8c">(4.8)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹599</span>
+            <button class="add-button" data-name="Cuddle Bunny" data-price="599">Add +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="baby">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1560961911-ba7ef651a56c?auto=format&fit=crop&w=700&q=85"
+               alt="Baby doll toy" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Baby Dolls</span>
+          <h3>Little Sunshine</h3>
+          <p>A sweet baby doll for pretend play and caring adventures.</p>
+          <div class="rating">★★★★☆ <span style="color:#927d8c">(4.6)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹899</span>
+            <button class="add-button" data-name="Little Sunshine" data-price="899">Add +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="collectible">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1602734846297-9299fc2d4703?auto=format&fit=crop&w=700&q=85"
+               alt="Collectible doll" loading="lazy">
+          <span class="product-badge">SPECIAL</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category">Collectibles</span>
+          <h3>Dreamy Daisy</h3>
+          <p>A delightful decorative doll for collectors and gift lovers.</p>
+          <div class="rating">★★★★★ <span style="color:#927d8c">(4.9)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹1,299</span>
+            <button class="add-button" data-name="Dreamy Daisy" data-price="1299">Add +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="fashion">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1599623560574-39d485900c95?auto=format&fit=crop&w=700&q=85"
+               alt="Stylish fashion doll" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Fashion Dolls</span>
+          <h3>Style Star</h3>
+          <p>A stylish doll for creative fashion games and storytelling.</p>
+          <div class="rating">★★★★☆ <span style="color:#927d8c">(4.7)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹699</span>
+            <button class="add-button" data-name="Style Star" data-price="699">Add +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="plush">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=700&q=85"
+               alt="Cute plush companion" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Plush Dolls</span>
+          <h3>Fluffy Friend</h3>
+          <p>A cute soft friend for playtime, hugs and happy moments.</p>
+          <div class="rating">★★★★★ <span style="color:#927d8c">(4.8)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹499</span>
+            <button class="add-button" data-name="Fluffy Friend" data-price="499">Add +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="baby">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1560961911-ba7ef651a56c?auto=format&fit=crop&w=700&q=85"
+               alt="Baby doll companion" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Baby Dolls</span>
+          <h3>Sweet Peaches</h3>
+          <p>A lovely doll to inspire caring and imaginative play.</p>
+          <div class="rating">★★★★☆ <span style="color:#927d8c">(4.5)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹749</span>
+            <button class="add-button" data-name="Sweet Peaches" data-price="749">Add +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="collectible">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1602734846297-9299fc2d4703?auto=format&fit=crop&w=700&q=85"
+               alt="Decorative collectible doll" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Collectibles</span>
+          <h3>Royal Rose</h3>
+          <p>A graceful display doll for a special collection or gift.</p>
+          <div class="rating">★★★★★ <span style="color:#927d8c">(4.9)</span></div>
+          <div class="product-bottom">
+            <span class="price">₹1,499</span>
+            <button class="add-button" data-name="Royal Rose" data-price="1499">Add +</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Promotional Banner -->
+  <section class="promo" id="collections">
+    <div>
+      <div class="eyebrow">A little extra love</div>
+      <h2>Make Every Gift Magical ♡</h2>
+      <p>
+        From sweet birthday surprises to thoughtful gifts,
+        discover adorable dolls for the people who make life special.
+      </p>
+    </div>
+
+    <a href="#shop" class="primary-button">Shop the Collection</a>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="section-heading">
+      <div class="eyebrow">Our little story</div>
+      <h2>Made for Imagination</h2>
+      <p>
+        At Dolly Dreams, we celebrate creativity, friendship and
+        the joy of finding a special little companion.
+      </p>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2>Join Our Doll Club 💌</h2>
+    <p>Sign up for new collection updates, gift ideas and special offers.</p>
+
+    <form class="newsletter-form" id="newsletter-form">
+      <input type="email" placeholder="Enter your email address"
+             aria-label="Email address" required>
+      <button class="primary-button" type="submit">Join Us</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">Dolly Dreams ♡</div>
+
+      <div class="footer-links">
+        <a href="#shop">Shop</a>
+        <a href="#about">Our Story</a>
+        <a href="#help">Help Centre</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <p>
+      Dolly Dreams is a fictional doll boutique created for
+      front-end development practice. Product details and prices
+      are illustrative.
+    </p>
+
+    <p style="margin-top: 12px;">© 2026 Dolly Dreams. UI Practice Project.</p>
+  </footer>
+
+  <script>
+    // Product category filters
+    const filterButtons = document.querySelectorAll(".filter-button");
+    const products = document.querySelectorAll(".product-card");
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+
+        const category = button.dataset.category;
+
+        products.forEach(product => {
+          product.style.display =
+            category === "all" || product.dataset.category === category
+              ? ""
+              : "none";
+        });
+      });
+    });
+
+    // Shopping cart demo
+    let cart = [];
+
+    document.querySelectorAll(".add-button").forEach(button => {
+      button.addEventListener("click", () => {
+        const name = button.dataset.name;
+        const price = Number(button.dataset.price);
+
+        cart.push({ name, price });
+        document.getElementById("cart-count").textContent = cart.length;
+
+        button.textContent = "Added ✓";
+        setTimeout(() => {
+          button.textContent = "Add +";
+        }, 1000);
+      });
+    });
+
+    function showCart() {
+      if (cart.length === 0) {
+        alert("Your shopping cart is empty. Explore our doll collection!");
+        return;
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const items = cart.map(item => item.name + " - ₹" + item.price).join("\n");
+
+      alert(
+        "YOUR DOLLY DREAMS CART\n\n" +
+        items +
+        "\n\nTotal: ₹" + total +
+        "\n\nThis is a demo cart. Checkout is not connected."
+      );
+    }
+
+    // Newsletter demo
+    document.getElementById("newsletter-form").addEventListener("submit", event => {
+      event.preventDefault();
+      alert("Thank you for joining Dolly Dreams!");
+      event.target.reset();
+    });
+  </script>
+
+</body>
+</html>

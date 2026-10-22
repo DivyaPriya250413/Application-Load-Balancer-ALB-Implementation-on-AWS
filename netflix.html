@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix - Watch Movies & TV Shows</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #141414;
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 680px;
+      background:
+        linear-gradient(to top, #141414 2%, transparent 70%),
+        linear-gradient(to right, rgba(0,0,0,.8), transparent),
+        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 25px 6%;
+    }
+
+    .logo {
+      color: #e50914;
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .language, .sign-in {
+      padding: 9px 15px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .language {
+      color: white;
+      background: rgba(0,0,0,.6);
+      border: 1px solid #aaa;
+    }
+
+    .sign-in {
+      color: white;
+      background: #e50914;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .sign-in:hover, .get-started:hover {
+      background: #b20710;
+    }
+
+    /* Hero Content */
+    .hero-content {
+      max-width: 750px;
+      margin: 125px auto 0;
+      padding: 0 25px;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(36px, 6vw, 65px);
+      line-height: 1.1;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .hero-content h2 {
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .email-form {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .email-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 18px;
+      font-size: 16px;
+      background: rgba(20,20,20,.8);
+      color: white;
+      border: 1px solid #888;
+      border-radius: 4px;
+    }
+
+    .get-started {
+      padding: 16px 24px;
+      color: white;
+      background: #e50914;
+      border: none;
+      border-radius: 4px;
+      font-size: 19px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Trending Section */
+    .movies {
+      padding: 35px 6%;
+    }
+
+    .movies h2 {
+      font-size: 27px;
+      margin-bottom: 22px;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .movie-card {
+      position: relative;
+      height: 270px;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform .3s;
+      background: #292929;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.06);
+      z-index: 2;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .movie-number {
+      position: absolute;
+      bottom: 0;
+      left: -5px;
+      font-size: 90px;
+      line-height: .9;
+      font-weight: 900;
+      color: #141414;
+      -webkit-text-stroke: 2px white;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    /* Reasons Section */
+    .reasons {
+      padding: 35px 6% 60px;
+    }
+
+    .reasons h2 {
+      font-size: 27px;
+      margin-bottom: 22px;
+    }
+
+    .reason-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .reason-card {
+      min-height: 210px;
+      padding: 24px 18px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, #202044, #301b2c);
+    }
+
+    .reason-card h3 {
+      font-size: 21px;
+      margin-bottom: 15px;
+    }
+
+    .reason-card p {
+      color: #ccc;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .reason-icon {
+      text-align: right;
+      font-size: 34px;
+      margin-top: 18px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 35px 6%;
+      color: #aaa;
+    }
+
+    footer a {
+      color: #aaa;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .footer-links div {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    footer select {
+      margin: 15px 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .reason-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .movie-card {
+        height: 230px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        min-height: 620px;
+      }
+
+      nav {
+        padding: 20px 5%;
+      }
+
+      .logo {
+        font-size: 27px;
+      }
+
+      .nav-right {
+        gap: 8px;
+      }
+
+      .language, .sign-in {
+        padding: 8px;
+        font-size: 12px;
+      }
+
+      .hero-content {
+        margin-top: 110px;
+      }
+
+      .hero-content h2 {
+        font-size: 20px;
+      }
+
+      .hero-content p {
+        font-size: 16px;
+      }
+
+      .email-form {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .email-form input {
+        width: 100%;
+        min-height: 55px;
+      }
+
+      .get-started {
+        font-size: 17px;
+      }
+
+      .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .movie-card {
+        height: 220px;
+      }
+
+      .reason-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .movies h2, .reasons h2 {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Hero and Navigation -->
+  <header class="hero">
+    <nav>
+      <div class="logo">NETFLIX</div>
+
+      <div class="nav-right">
+        <select class="language" aria-label="Choose language">
+          <option>English</option>
+          <option>தமிழ்</option>
+        </select>
+
+        <a href="#membership" class="sign-in">Sign In</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <h1>Unlimited movies, TV shows and more</h1>
+      <h2>Watch anywhere. Cancel anytime.</h2>
+
+      <p>
+        Ready to watch? Enter your email to create or restart your membership.
+      </p>
+
+      <form class="email-form" id="membership">
+        <input
+          type="email"
+          placeholder="Email address"
+          aria-label="Email address"
+          required
+        >
+        <button type="submit" class="get-started">
+          Get Started ❯
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <!-- Trending Movies -->
+  <section class="movies">
+    <h2>Trending Now</h2>
+
+    <div class="movie-grid">
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"
+             alt="Oppenheimer movie poster">
+        <span class="movie-number">1</span>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg"
+             alt="Dune movie poster">
+        <span class="movie-number">2</span>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/kQs6keheMwCxJxrzV83VUwFtHkB.jpg"
+             alt="Action movie poster">
+        <span class="movie-number">3</span>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg"
+             alt="Adventure movie poster">
+        <span class="movie-number">4</span>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg"
+             alt="Animated movie poster">
+        <span class="movie-number">5</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reasons to Join -->
+  <section class="reasons">
+    <h2>More Reasons to Join</h2>
+
+    <div class="reason-grid">
+      <div class="reason-card">
+        <h3>Enjoy on your TV</h3>
+        <p>Watch on Smart TVs, PlayStation, Xbox, Chromecast and more.</p>
+        <div class="reason-icon">📺</div>
+      </div>
+
+      <div class="reason-card">
+        <h3>Download your shows</h3>
+        <p>Save your favourites easily and always have something to watch.</p>
+        <div class="reason-icon">⬇️</div>
+      </div>
+
+      <div class="reason-card">
+        <h3>Watch everywhere</h3>
+        <p>Stream unlimited movies and TV shows on your phone and laptop.</p>
+        <div class="reason-icon">🎬</div>
+      </div>
+
+      <div class="reason-card">
+        <h3>Create profiles for kids</h3>
+        <p>Give kids their own space to enjoy family-friendly entertainment.</p>
+        <div class="reason-icon">🧒</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Questions? Contact us.</p>
+
+    <div class="footer-links">
+      <div>
+        <a href="#faq">FAQ</a>
+        <a href="#investor">Investor Relations</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#speed">Speed Test</a>
+      </div>
+
+      <div>
+        <a href="#help">Help Centre</a>
+        <a href="#jobs">Jobs</a>
+        <a href="#cookies">Cookie Preferences</a>
+        <a href="#legal">Legal Notices</a>
+      </div>
+
+      <div>
+        <a href="#account">Account</a>
+        <a href="#ways">Ways to Watch</a>
+        <a href="#corporate">Corporate Information</a>
+        <a href="#only">Only on Netflix</a>
+      </div>
+
+      <div>
+        <a href="#media">Media Centre</a>
+        <a href="#terms">Terms of Use</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+    </div>
+
+    <select class="language" aria-label="Footer language">
+      <option>English</option>
+      <option>தமிழ்</option>
+    </select>
+
+    <p style="margin-top: 15px;">Netflix India</p>
+    <p style="margin-top: 15px; font-size: 12px;">
+      This is a front-end practice project, not the official Netflix website.
+    </p>
+  </footer>
+
+  <script>
+    document.querySelector(".email-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      alert("Welcome! This is a demo landing page. Membership registration is not connected.");
+    });
+  </script>
+
+</body>
+</html>

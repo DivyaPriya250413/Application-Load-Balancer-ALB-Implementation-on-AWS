@@ -1,6 +1,8 @@
-🚀 **AWS Hands-On Lab Project: Implementing an Advance Application Load Balancer (ALB)** 🔗 www.linkedin.com/in/divya-priya2026 (Running Process)
+🚀 **AWS Hands-On Lab Project: Implementing an Advance Application Load Balancer (ALB)** 
 
 I gained hands-on experience implementing an Application Load Balancer (ALB) on Amazon Web Services (AWS) to distribute incoming web traffic across multiple EC2 instances.
+
+🔗 www.linkedin.com/in/divya-priya2026 (Running Process check it LinkedIn profile)
 
 
 📌 **AWS Services Used:**
